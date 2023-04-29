@@ -28,21 +28,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late final rive.StateMachineController _stateMachineController;
   late final rive.SMITrigger _jumpTrigger;
   late final rive.SMIBool _isRunningFlag;
   bool _isArtboardLoaded = false;
 
   void _onInit(rive.Artboard art) {
-    _stateMachineController =
+    final controller =
         rive.StateMachineController.fromArtboard(art, 'State Machine 1')
             as rive.StateMachineController;
-    _stateMachineController.isActive = true;
-    art.addController(_stateMachineController);
-    _jumpTrigger =
-        _stateMachineController.findInput<bool>('Jump') as rive.SMITrigger;
-    _isRunningFlag =
-        _stateMachineController.findInput<bool>('IsRunning') as rive.SMIBool;
+    controller.isActive = true;
+    art.addController(controller);
+    _jumpTrigger = controller.findInput<bool>('Jump') as rive.SMITrigger;
+    _isRunningFlag = controller.findInput<bool>('IsRunning') as rive.SMIBool;
     setState(() {
       _isArtboardLoaded = true;
     });
